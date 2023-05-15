@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView tv1;
     Handler mHandler = new Handler();
-    static String ChatGPTAPIKEY = "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";
+    static String ChatGPTAPIKEY = "ChatGPTAPIKEY";
     static String url = "https://api.openai.com/v1/chat/completions";
     String result = "";
     int a = 0;
