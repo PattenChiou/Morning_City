@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tv1;
     Handler mHandler = new Handler();
     static String ChatGPTAPIKEY = "ChatGPTAPIKEY";
+    
     static String url = "https://api.openai.com/v1/chat/completions";
     String result = "";
     int a = 0;
