@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Morning City</string>
+    <string-array name="news">
+        <item>財經</item>
+        <item>政治</item>
+        <item>娛樂</item>
+        <item>社會</item>
+        <item>音樂</item>
+        <item>藝術</item>
+        <item>運動</item>
+    </string-array>
 </resources>
