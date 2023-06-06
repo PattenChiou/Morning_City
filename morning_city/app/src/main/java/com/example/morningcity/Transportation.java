@@ -44,25 +44,27 @@ public class Transportation extends AppCompatActivity {
         }
         recyclerView = findViewById(R.id.recyclerViewTransportationList);
         db = openOrCreateDatabase("db", MODE_PRIVATE, null);
-//        db.execSQL("drop table if exists 'BusStops'");
+        db.execSQL("drop table if exists 'BusStops'");
         db.execSQL("create table if not exists 'BusStops'(" +
                 "_id Integer primary key autoincrement," +
+                "RouteName varchar(10)," +
                 "StopID varchar(6)," +
                 "StopName varchar(30)," +
                 "StopSequence integer" +
                 ")");
-        Cursor cursor = db.rawQuery("select * from 'BusStops'", null);
+        Cursor cursor = db.rawQuery("select * from 'BusStops' where RouteName = ?", new String[]{"967cons"});
         if(cursor.getCount() == 0){
             try{
-                CSVReader csvReader = new CSVReader(new InputStreamReader(Transportation.this.getAssets().open("967.csv")));
+                CSVReader csvReader = new CSVReader(new InputStreamReader(Transportation.this.getAssets().open("967cons.csv")));
                 String[] nextLine;
                 String[] header = csvReader.readNext();
                 nextLine = csvReader.readNext();
                 while(nextLine != null){
                     ContentValues contentValues = new ContentValues();
-                    contentValues.put("StopID", nextLine[0]);
-                    contentValues.put("StopName", nextLine[1]);
-                    contentValues.put("StopSequence", nextLine[2]);
+                    contentValues.put("RouteName", nextLine[0]);
+                    contentValues.put("StopID", nextLine[1]);
+                    contentValues.put("StopName", nextLine[2]);
+                    contentValues.put("StopSequence", nextLine[3]);
                     db.insert("'BusStops'", null, contentValues);
                     nextLine = csvReader.readNext();
                 }
@@ -110,13 +112,13 @@ public class Transportation extends AppCompatActivity {
                             switch(transportationResponse.getData().get(i).getStopStatus()){
                                 case 0:
                                 case 1:
-                                    dataList.set(cursor.getInt(0) - 1 , cursor.getString(2) + "," + round(transportationResponse.getData().get(i).getEstimateTime()/60) + "分");
+                                    dataList.set(cursor.getInt(4) - 1 , cursor.getString(3) + "," + round(transportationResponse.getData().get(i).getEstimateTime()/60) + "分");
                                     break;
                                 case 2:
-                                    dataList.set(cursor.getInt(0) - 1 , cursor.getString(2) + "," + "交管不停靠");
+                                    dataList.set(cursor.getInt(4) - 1 , cursor.getString(3) + "," + "交管不停靠");
                                     break;
                                 case 3:
-                                    dataList.set(cursor.getInt(0) - 1 , cursor.getString(2) + "," + "末班車已過");
+                                    dataList.set(cursor.getInt(4) - 1 , cursor.getString(3) + "," + "末班車已過");
                                     break;
                             }
 
