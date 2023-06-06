@@ -9,4 +9,29 @@
         <item>藝術</item>
         <item>運動</item>
     </string-array>
+    <string name="app_name">學生日常</string>
+    <string name="freewifimap">Free-WiFi 地圖</string>
+    <string name="todos">待辦事項</string>
+    <string name="chatgpt">ChatGPT</string>
+    <string name="weather">天氣</string>
+    <string name="send">傳送</string>
+    <string name="continuousChat">連續對話</string>
+    <string name="date">日期：</string>
+    <string name="time">時間：</string>
+    <string name="todo">事項：</string>
+    <string name="add">加入</string>
+    <string name="delete">刪除</string>
+    <string name="deleteDialogTitle">請選擇要刪除的事項</string>
+    <string name="deleteDialogPositive">確認刪除</string>
+    <string name="refresh">更新</string>
+    <string name="chooseDialogTitle">請選擇一個地區</string>
+    <string name="chooseDialogNegative">取消</string>
+    <string name="region">地區</string>
+    <string name="banqiao">板橋</string>
+    <string name="newtaipei">新北</string>
+    <string name="temp">氣溫：</string>
+    <string name="weather2">天氣概況：</string>
+    <string name="weatherNoData">此地區暫無資料，請選擇其他地區</string>
+    <string name="wantToEat">想吃東西</string>
+    <string name="restaurant">餐廳</string>
 </resources>

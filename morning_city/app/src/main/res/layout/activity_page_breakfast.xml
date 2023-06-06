@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Page_breakfast">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/Breakfast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="95dp"
+            android:text="今日早餐" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="119dp" />
+
+        <TextView
+            android:id="@+id/break1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:text="推薦早餐1" />
+
+        <TextView
+            android:id="@+id/break2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:text="推薦早餐2" />
+
+        <TextView
+            android:id="@+id/break3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:text="推薦早餐3" />
+
+        <Button
+            android:id="@+id/button_renew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="更新" />
+
+        <Button
+            android:id="@+id/button_find"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="尋找附近早餐店" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
