@@ -30,16 +30,16 @@ public class Page_star extends AppCompatActivity {
         //txt1 = findViewById(R.id.textView);
         txt2 = findViewById(R.id.textView2);
         txt3 = findViewById(R.id.textView3);
-        txt4 = findViewById(R.id.textView4);
-        txt5 = findViewById(R.id.textView5);
-        txt6 = findViewById(R.id.textView6);
-        txt7 = findViewById(R.id.textView7);
-        txt8 = findViewById(R.id.textView8);
+        txt4 = findViewById(R.id.textViewTodosDate);
+        txt5 = findViewById(R.id.textViewTodosShowDate);
+        txt6 = findViewById(R.id.textViewTodosTime);
+        txt7 = findViewById(R.id.textView7TodosShowTime);
+        txt8 = findViewById(R.id.textView8TodosTodos);
         txt9 = findViewById(R.id.textView9);
         txt10 = findViewById(R.id.textView10);
         image = findViewById(R.id.imageView2);
         spinner = findViewById(R.id.spinner2);
-        button = findViewById(R.id.button);
+        button = findViewById(R.id.buttonTodosAdd);
         String[] starSigns = {"牡羊座", "金牛座", "雙子座", "巨蟹座", "獅子座", "處女座", "天秤座", "天蠍座", "射手座", "摩羯座", "水瓶座", "雙魚座"};
         String[] starSignUrls = {"https://astro.click108.com.tw/daily_0.php?iAstro=0",
                 "https://astro.click108.com.tw/daily_1.php?iAcDay=2023-05-28&iAstro=1",

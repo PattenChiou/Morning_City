@@ -12,11 +12,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import com.opencsv.CSVReader;
 
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,11 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.FormBody;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class Transportation extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -48,7 +42,7 @@ public class Transportation extends AppCompatActivity {
         for(int i = 0; i < 55; i++){
             dataList.add("");
         }
-        recyclerView = findViewById(R.id.recyclerView1);
+        recyclerView = findViewById(R.id.recyclerViewTransportationList);
         db = openOrCreateDatabase("db", MODE_PRIVATE, null);
 //        db.execSQL("drop table if exists 'BusStops'");
         db.execSQL("create table if not exists 'BusStops'(" +

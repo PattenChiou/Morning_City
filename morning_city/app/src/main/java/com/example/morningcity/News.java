@@ -23,7 +23,7 @@ public class News extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.news_main);
 
-        btnSettings = findViewById(R.id.button2);
+        btnSettings = findViewById(R.id.buttonTodosDelete);
         lvNews = findViewById(R.id.listView);
 
         matrixCursor = new MatrixCursor(new String[]{"_id", "title", "content"});

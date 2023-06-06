@@ -16,13 +16,13 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <Spinner
-            android:id="@+id/spinner4"
+            android:id="@+id/spinnerNews"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/buttonNewsConfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="確認" />

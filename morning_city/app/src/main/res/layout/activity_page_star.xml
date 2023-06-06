@@ -30,7 +30,7 @@
                 android:layout_weight="12" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/buttonTodosAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -68,13 +68,13 @@
             android:gravity="center" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textViewTodosDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/textViewTodosShowDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/red"
@@ -82,13 +82,13 @@
             android:textSize="30dp" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/textViewTodosTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/textView7TodosShowTime"
             android:textColor="@color/blue"
             android:textSize="30dp"
             android:layout_width="match_parent"
@@ -96,7 +96,7 @@
             android:gravity="center" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/textView8TodosTodos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp" />

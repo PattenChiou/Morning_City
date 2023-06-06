@@ -43,8 +43,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.textView11);
-            tvESTTime = itemView.findViewById(R.id.textView12);
+            textView = itemView.findViewById(R.id.textViewTransportationListStopName);
+            tvESTTime = itemView.findViewById(R.id.textViewTransportationListESTTime);
         }
     }
 }

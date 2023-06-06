@@ -16,6 +16,18 @@
         android:theme="@style/Theme.MorningCity"
         tools:targetApi="31">
         <activity
+            android:name=".Weather"
+            android:exported="false" />
+        <activity
+            android:name=".Home"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".Page_breakfast"
             android:exported="false" />
         <activity
@@ -26,26 +38,19 @@
             android:exported="false" />
         <activity
             android:name=".Page_news"
-            android:exported="false" /> <!-- <activity -->
-        <!-- android:name=".Transportation" -->
-        <!-- android:exported="false" /> -->
-        <!-- <activity -->
-        <!-- android:name=".Todos_settings" -->
-        <!-- android:exported="false" /> &lt;!&ndash; <activity &ndash;&gt; -->
-        <!-- android:name=".Todos" -->
-        <!-- android:exported="false" /> -->
-        <!-- <activity -->
-        <!-- android:name=".News" -->
-        <!-- android:exported="false" /> -->
+            android:exported="false" />
         <activity
             android:name=".Transportation"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
+        <activity
+            android:name=".Todos_settings"
+            android:exported="false" />
+        <activity
+            android:name=".Todos"
+            android:exported="false" />
+        <activity
+            android:name=".News"
+            android:exported="false" />
     </application>
 
 </manifest>
