@@ -3,6 +3,7 @@ package com.example.morningcity;
 import static java.lang.Math.round;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.database.CursorKt;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +11,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.gson.Gson;
 import com.opencsv.CSVReader;
@@ -34,6 +37,8 @@ public class Transportation extends AppCompatActivity {
     public static String accessToken = "";
     RecyclerAdapter recyclerAdapter = new RecyclerAdapter(dataList);
     SQLiteDatabase db;
+    int direction = 0;
+    Button btnChangeDirection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,19 +48,41 @@ public class Transportation extends AppCompatActivity {
             dataList.add("");
         }
         recyclerView = findViewById(R.id.recyclerViewTransportationList);
+        btnChangeDirection = findViewById(R.id.buttonTransportationChangeDirection);
+
         db = openOrCreateDatabase("db", MODE_PRIVATE, null);
-        db.execSQL("drop table if exists 'BusStops'");
-        db.execSQL("create table if not exists 'BusStops'(" +
+        db.execSQL("drop table if exists BusStops");
+        db.execSQL("create table if not exists BusStops(" +
                 "_id Integer primary key autoincrement," +
                 "RouteName varchar(10)," +
                 "StopID varchar(6)," +
                 "StopName varchar(30)," +
                 "StopSequence integer" +
                 ")");
-        Cursor cursor = db.rawQuery("select * from 'BusStops' where RouteName = ?", new String[]{"967cons"});
+        Cursor cursor = db.rawQuery("select * from BusStops where RouteName = ?", new String[]{"967cons"});
         if(cursor.getCount() == 0){
             try{
                 CSVReader csvReader = new CSVReader(new InputStreamReader(Transportation.this.getAssets().open("967cons.csv")));
+                String[] nextLine;
+                String[] header = csvReader.readNext();
+                nextLine = csvReader.readNext();
+                while(nextLine != null){
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put("RouteName", nextLine[0]);
+                    contentValues.put("StopID", nextLine[1]);
+                    contentValues.put("StopName", nextLine[2]);
+                    contentValues.put("StopSequence", nextLine[3]);
+                    db.insert("'BusStops'", null, contentValues);
+                    nextLine = csvReader.readNext();
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        cursor = db.rawQuery("select * from BusStops where RouteName = ?", new String[]{"967trans"});
+        if(cursor.getCount() == 0){
+            try{
+                CSVReader csvReader = new CSVReader(new InputStreamReader(Transportation.this.getAssets().open("967trans.csv")));
                 String[] nextLine;
                 String[] header = csvReader.readNext();
                 nextLine = csvReader.readNext();
@@ -91,7 +118,34 @@ public class Transportation extends AppCompatActivity {
         while(accessToken == ""){
 
         }
+        getInformation("967cons");
 
+    }
+    public String makeRequest(){
+//        return "{" +
+//                "\"model\": \"text-davinci-003\"," +
+//                "\"content\": "+ "\"" + content + "\"," +
+//                "\"temperature\": 0.5," +
+//                "\"max_tokens\": 1000," +
+//                "\"top_p\": 1," +
+//                "\"frequency_penalty\": 0," +
+//                "\"presence_penalty\": 0" +
+//                "}";
+//        System.out.println(messages);
+        JSONObject body = new JSONObject();
+        try{
+            body.put("grant_type", "client_credentials");
+            body.put("client_id", "B1028025-de600d9a-6618-4f37");
+            body.put("client_secret", "46c6e281-b5e3-41b2-b6f4-d940f3c88c27");
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        System.out.println(body.toString());
+        return body.toString();
+    }
+    public void getInformation(String routeName){
+        Cursor cursor;
         new HttpRequestTransportation().sendGET(dataUrl, new HttpRequestTransportation.OnCallback() {
             @Override
             public void onOKCall(String response) {
@@ -100,9 +154,15 @@ public class Transportation extends AppCompatActivity {
                 runOnUiThread(() ->{
                     System.out.println(transportationResponse.getData().get(0).getRouteName().getZh_tw());
                 });
+                Cursor cursor = db.rawQuery("select * from BusStops where RouteName = ?", new String[]{routeName});
+                dataList.clear();
+                System.out.println("count:" + cursor.getCount());
+                for(int i = 0; i < cursor.getCount(); i++){
+                    dataList.add("");
+                }
                 for(int i = 0; i < transportationResponse.getData().size(); i++){
-                    if(transportationResponse.getData().get(i).getDirection() == 0){
-                        Cursor cursor = db.rawQuery("select * from 'BusStops' where StopID = ?", new String[]{transportationResponse.getData().get(i).getStopID()}, null);
+                    if(transportationResponse.getData().get(i).getDirection() == direction){
+                        cursor = db.rawQuery("select * from BusStops where StopID = ?", new String[]{transportationResponse.getData().get(i).getStopID()}, null);
                         cursor.moveToFirst();
                         if(cursor.getCount() == 0){
                             System.out.println(transportationResponse.getData().get(i).getRouteName().getZh_tw());
@@ -141,27 +201,16 @@ public class Transportation extends AppCompatActivity {
             }
         });
     }
-    public String makeRequest(){
-//        return "{" +
-//                "\"model\": \"text-davinci-003\"," +
-//                "\"content\": "+ "\"" + content + "\"," +
-//                "\"temperature\": 0.5," +
-//                "\"max_tokens\": 1000," +
-//                "\"top_p\": 1," +
-//                "\"frequency_penalty\": 0," +
-//                "\"presence_penalty\": 0" +
-//                "}";
-//        System.out.println(messages);
-        JSONObject body = new JSONObject();
-        try{
-            body.put("grant_type", "client_credentials");
-            body.put("client_id", "B1028025-de600d9a-6618-4f37");
-            body.put("client_secret", "46c6e281-b5e3-41b2-b6f4-d940f3c88c27");
-        }catch(JSONException e){
-            e.printStackTrace();
+    public void changeDirection(View view){
+        if(direction == 0){
+            direction = 1;
+            btnChangeDirection.setText(getResources().getString(R.string.trans));
+            getInformation("967trans");
         }
-
-        System.out.println(body.toString());
-        return body.toString();
+        else{
+            direction = 0;
+            btnChangeDirection.setText(getResources().getString(R.string.cons));
+            getInformation("967cons");
+        }
     }
 }

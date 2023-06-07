@@ -3,7 +3,9 @@ package com.example.morningcity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,9 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.opencsv.CSVReader;
 
+
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import android.database.Cursor;
 
 public class Weather extends AppCompatActivity {
 
@@ -23,18 +30,50 @@ public class Weather extends AppCompatActivity {
     ArrayList<String> messages = new ArrayList<>();
     TextView tvSiteName, tvTemp, tvWeather;
     Spinner spSiteName;
-    ArrayList<String> siteNames;
-    ArrayList<String> stationIds;
+    ArrayList<String> siteNames = new ArrayList<>();
+    ArrayList<String> stationIds = new ArrayList<>();
     String site;
     String stationId;
     Button btRefresh;
+    SQLiteDatabase db;
+    Cursor cursor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
 
-        siteNames = new ArrayList<>(Arrays.asList(new String[]{getResources().getString(R.string.banqiao), getResources().getString(R.string.newtaipei)}));
-        stationIds = new ArrayList<>(Arrays.asList(new String[]{"C0AJ80", "466881"}));
+
+        db = openOrCreateDatabase("db", MODE_PRIVATE, null);
+        db.execSQL("create table if not exists weather(" +
+                "_id integer primary key autoincrement," +
+                "stationID varchar(10)," +
+                "locationName varchar(10)," +
+                "city varchar(5)" +
+                ")");
+
+        try{
+            CSVReader csvReader = new CSVReader(new InputStreamReader(Weather.this.getAssets().open("weather.csv")));
+            String[] nextLine;
+            String[] header = csvReader.readNext();
+            nextLine = csvReader.readNext();
+            while(nextLine != null){
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("stationID", nextLine[0]);
+                contentValues.put("locationName", nextLine[1]);
+                contentValues.put("city", nextLine[2]);
+                db.insert("weather", null, contentValues);
+                nextLine = csvReader.readNext();
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        cursor = db.rawQuery("select * from weather", null);
+        cursor.moveToFirst();
+        for(int i = 0; i < cursor.getCount(); i++){
+            stationIds.add(cursor.getString(1));
+            siteNames.add(cursor.getString(2));
+            cursor.moveToNext();
+        }
 
         spSiteName = findViewById(R.id.spinner);
         tvTemp = findViewById(R.id.textViewWeatherTemp);

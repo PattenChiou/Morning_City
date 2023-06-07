@@ -37,4 +37,6 @@
     <string name="news">新聞</string>
     <string name="breakfast">早餐</string>
     <string name="constellation">星座</string>
+    <string name="cons">順行</string>
+    <string name="trans">逆行</string>
 </resources>

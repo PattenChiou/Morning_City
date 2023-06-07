@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Transportation">
+    tools:context=".TodosToday">
 
     <LinearLayout
         android:layout_width="409dp"
@@ -13,16 +13,28 @@
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp">
 
-        <Button
-            android:id="@+id/buttonTransportationChangeDirection"
+        <TextView
+            android:id="@+id/textViewTodosToday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="changeDirection"
-            android:text="@string/cons" />
+            android:text="今日事項"
+            android:textAlignment="center"
+            android:textSize="34sp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewTransportationList"
+        <ListView
+            android:id="@+id/listViewTodosToday"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+        </ListView>
+
+        <Button
+            android:id="@+id/buttonTodosTodayGoBackToEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="openTodos"
+            android:text="回到編輯畫面"
+            android:textAlignment="center" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
